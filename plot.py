@@ -9,7 +9,7 @@ res = []
 with open(distibution_file) as file:
     for line in file:
         cur_distance = float(line.rstrip("\n"))
-        if cur_distance < 800.0:
+        if cur_distance < 4000:
             res.append(cur_distance)
 file.close()
 

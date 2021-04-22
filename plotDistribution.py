@@ -4,35 +4,30 @@ import sys as sys
 import pandas as pd
 
 print(1)
-distibution_file = "/Users/ary/dev/code/trait/bdap_3/src/resources/2010_03.trip_distances_filter"
-res = []
+distibution_file = "/Users/ary/dev/code/trait/bdap_3/src/resources/2010_03.trip_distribution"
+ranges = []
+cnts = []
 with open(distibution_file) as file:
     for line in file:
-        cur_distance = float(line.rstrip("\n"))
-        res.append(cur_distance)
+        range_and_cnt = line.rstrip("\n")
+        range = int(range_and_cnt.split(",")[0])
+        cnt = int(range_and_cnt.split(",")[1])
+        if (cnt < 200 and range < 30000):
+            ranges.append(range)
+            cnts.append(cnt)
+
 
 file.close()
-
-min = sys.float_info.max
-max = sys.float_info.min
-for dist in res:
-    if dist < min :
-        min = dist
-
-    if dist > max:
-        max = dist
-
-print(min)
-print(max)
-print(len(res))
-commutes = pd.Series(res)
-
-commutes.plot.hist( bins=1000, rwidth=0.9,
-                   color='#607c8e')
-plt.title('taxi trip dist distribution')
-plt.xlabel('trip length')
-plt.ylabel('counts')
-plt.grid(axis='y', alpha=0.75)
+x = [1, 3, 2, 5]
+y = [2, 4,6,1]
+plt.bar(ranges, cnts)
+# commutes = pd.Series(res)
+# commutes.plot.hist(rwidth=0.9,
+#                    color='#607c8e')
+# plt.title('taxi trip dist distribution')
+# plt.xlabel('trip length')
+# plt.ylabel('counts')
+# plt.grid(axis='y', alpha=0.75)
 # ax2 = fig.add_subplot(122)
 # todo add density and boxplot
 plt.show()

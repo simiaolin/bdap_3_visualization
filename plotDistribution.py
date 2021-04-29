@@ -4,7 +4,7 @@ import sys as sys
 import pandas as pd
 
 print(1)
-distibution_file = "/Users/ary/dev/code/trait/bdap_3/src/resources/2010_03.trip_distribution"
+distibution_file = "/Users/ary/dev/code/trait/bdap_3/src/resources/output/first/2010_03.trip_distribution"
 ranges = []
 cnts = []
 with open(distibution_file) as file:
@@ -18,9 +18,20 @@ with open(distibution_file) as file:
 
 
 file.close()
-x = [1, 3, 2, 5]
-y = [2, 4,6,1]
-plt.bar(ranges, cnts)
+# plt.bar(ranges, cnts)
+
+revenue_file = "/Users/ary/PycharmProjects/plotTaxiDistanceDistribution/revenue"
+times = []
+revenues = []
+with open(revenue_file) as file:
+    for line in file:
+        time_and_revenue = line.rstrip("\n")
+        time = time_and_revenue.split()[0]
+        revenue = float(time_and_revenue.split()[1])
+        times.append(time[2:])
+        revenues.append(revenue)
+plt.bar(times, revenues)
+file.close()
 # commutes = pd.Series(res)
 # commutes.plot.hist(rwidth=0.9,
 #                    color='#607c8e')
